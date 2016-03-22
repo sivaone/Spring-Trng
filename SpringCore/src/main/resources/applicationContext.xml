@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="bankService" class="com.siva.springjava.services.BankService"
+        init-method="init" destroy-method="destroy">
+        <!--<property name="bankName" value="MyBank"/>-->
+        <constructor-arg name="bankName" value="MyBank"/>
+        <property name="bankDao" ref="bankDao"/>
+    </bean>
+    <alias name="bankService" alias="bankServ"/>
+    
+    <bean id="bankDao" class="com.siva.springjava.daos.BankDao">
+        
+    </bean>
+    
+    <bean id="serviceLocator" class="com.siva.springjava.ServiceLocator"></bean>
+    
+    <bean id="employeeService" factory-bean="serviceLocator" factory-method="createEmployeeService"> </bean>
+    <bean id="departmentService" factory-bean="serviceLocator" factory-method="createDepartmentService"> </bean>
+    
+    <bean class="com.siva.springjava.PostProcessor"></bean> 
+    <!-- more bean definitions go here -->
+
+</beans>
